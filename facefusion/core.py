@@ -128,7 +128,7 @@ def conditional_process() -> ErrorCode:
 	return 0
 
 def conditional_save_faces(source_faces: List[Face], reference_faces: List[Face]) -> ErrorCode:
-	if not state_manager.get_item('processors').trim():
+	if os.environ.get('SAVE_FACES'):
 		with open(os.path.join(state_manager.get_item('output_path'), 'source_faces.json'), 'w', encoding='utf-8') as f:
 			json.dump(source_faces, f, ensure_ascii=False, indent=4)
 		with open(os.path.join(state_manager.get_item('output_path'), 'reference_faces.json'), 'w', encoding='utf-8') as f:
