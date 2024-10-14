@@ -4,6 +4,8 @@ import shutil
 import signal
 import sys
 from time import time
+from facefusion.typing import Face
+from typing import List, Optional
 
 import numpy
 
