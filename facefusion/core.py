@@ -129,12 +129,26 @@ def conditional_process() -> ErrorCode:
 		return process_video(start_time)
 	return 0
 
+def convert_face(face: Face):
+	return {
+		'bounding_box': face.bounding_box,
+		'score_set': face.score_set,
+		'landmark_set': face.landmark_set,
+		'angle': face.angle,
+		'gender': face.gender,
+		'age': face.age,
+		'race': face.race
+	}
+
+def convert_faces(faces: List[Face]):
+	return [convert_face(face) for face in faces]
+
 def conditional_save_faces(source_faces: List[Face], reference_faces: List[Face]) -> ErrorCode:
 	if os.environ.get('SAVE_FACES'):
 		with open(os.path.join(state_manager.get_item('output_path'), 'source_faces.json'), 'w', encoding='utf-8') as f:
-			json.dump(source_faces, f, ensure_ascii=False, indent=4)
+			json.dump(convert_faces(source_faces), f, ensure_ascii=False, indent=4)
 		with open(os.path.join(state_manager.get_item('output_path'), 'reference_faces.json'), 'w', encoding='utf-8') as f:
-			json.dump(reference_faces, f, ensure_ascii=False, indent=4)
+			json.dump(convert_faces(reference_faces), f, ensure_ascii=False, indent=4)
 		return 0
 
 def conditional_append_reference_faces() -> None:
