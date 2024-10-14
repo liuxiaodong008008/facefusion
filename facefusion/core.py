@@ -135,7 +135,7 @@ def convert_face(face: Face):
 		'score_set': face.score_set,
 		'angle': face.angle,
 		'gender': face.gender,
-		'age': face.age,
+		'age': [face.age.start, face.age.stop],
 		'race': face.race
 	}
 
