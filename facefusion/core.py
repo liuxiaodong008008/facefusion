@@ -1,3 +1,5 @@
+import json
+import os
 import shutil
 import signal
 import sys
@@ -125,6 +127,13 @@ def conditional_process() -> ErrorCode:
 		return process_video(start_time)
 	return 0
 
+def conditional_save_faces(source_faces: List[Face], reference_faces: List[Face]) -> ErrorCode:
+	if not state_manager.get_item('processors').trim():
+		with open(os.path.join(state_manager.get_item('output_path'), 'source_faces.json'), 'w', encoding='utf-8') as f:
+			json.dump(source_faces, f, ensure_ascii=False, indent=4)
+		with open(os.path.join(state_manager.get_item('output_path'), 'reference_faces.json'), 'w', encoding='utf-8') as f:
+			json.dump(reference_faces, f, ensure_ascii=False, indent=4)
+		return 0
 
 def conditional_append_reference_faces() -> None:
 	if 'reference' in state_manager.get_item('face_selector_mode') and not get_reference_faces():
@@ -136,6 +145,7 @@ def conditional_append_reference_faces() -> None:
 		else:
 			reference_frame = read_image(state_manager.get_item('target_path'))
 		reference_faces = sort_and_filter_faces(get_many_faces([ reference_frame ]))
+		conditional_save_faces(source_faces=source_faces, reference_faces=reference_faces)
 		reference_face = get_one_face(reference_faces, state_manager.get_item('reference_face_position'))
 		append_reference_face('origin', reference_face)
 
