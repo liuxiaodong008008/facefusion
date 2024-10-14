@@ -131,9 +131,8 @@ def conditional_process() -> ErrorCode:
 
 def convert_face(face: Face):
 	return {
-		'bounding_box': face.bounding_box,
-		'score_set': face.score_set,
-		'landmark_set': face.landmark_set,
+		'bounding_box': face.bounding_box.to_list(),
+		'score_set': face.score_set.to_list(),
 		'angle': face.angle,
 		'gender': face.gender,
 		'age': face.age,
