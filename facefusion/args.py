@@ -38,6 +38,7 @@ def apply_args(args : Args, apply_state_item : ApplyStateItem) -> None:
 	apply_state_item('jobs_path', args.get('jobs_path'))
 	apply_state_item('source_paths', args.get('source_paths'))
 	apply_state_item('target_path', args.get('target_path'))
+	apply_state_item('reference_output_path', args.get('reference_output_path'))
 	apply_state_item('output_path', args.get('output_path'))
 	# face detector
 	apply_state_item('face_detector_model', args.get('face_detector_model'))
