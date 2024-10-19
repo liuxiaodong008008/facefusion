@@ -142,11 +142,10 @@ def convert_face(face: Face):
 def convert_faces(faces: List[Face]):
 	return [convert_face(face) for face in faces]
 
-def conditional_save_faces(source_faces: List[Face], reference_faces: List[Face]) -> ErrorCode:
-	with open(os.path.join(state_manager.get_item('output_path'), 'source_faces.json'), 'w', encoding='utf-8') as f:
-		json.dump(convert_faces(source_faces), f, ensure_ascii=False, indent=4)
-	with open(os.path.join(state_manager.get_item('output_path'), 'reference_faces.json'), 'w', encoding='utf-8') as f:
-		json.dump(convert_faces(reference_faces), f, ensure_ascii=False, indent=4)
+def conditional_save_faces(reference_faces: List[Face]) -> ErrorCode:
+	if state_manager.get_item('reference_output_path'):
+		with open(os.path.join(state_manager.get_item('reference_output_path')), 'w', encoding='utf-8') as f:
+			json.dump(convert_faces(reference_faces), f, ensure_ascii=False, indent=4)
 	return 0
 
 def conditional_append_reference_faces() -> None:
@@ -159,7 +158,7 @@ def conditional_append_reference_faces() -> None:
 		else:
 			reference_frame = read_image(state_manager.get_item('target_path'))
 		reference_faces = sort_and_filter_faces(get_many_faces([ reference_frame ]))
-		conditional_save_faces(source_faces=source_faces, reference_faces=reference_faces)
+		conditional_save_faces(reference_faces=reference_faces)
 		reference_face = get_one_face(reference_faces, state_manager.get_item('reference_face_position'))
 		append_reference_face('origin', reference_face)
 

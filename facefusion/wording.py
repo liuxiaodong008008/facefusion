@@ -97,6 +97,7 @@ WORDING : Dict[str, Any] =\
 		'jobs_path': 'specify the directory to store jobs',
 		'source_paths': 'choose single or multiple source images or audios',
 		'target_path': 'choose single target image or video',
+		'reference_output_path': 'specify the output reference faces json within a directory',
 		'output_path': 'specify the output image or video within a directory',
 		# face detector
 		'face_detector_model': 'choose the model responsible for detecting the faces',
