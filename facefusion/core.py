@@ -123,6 +123,7 @@ def conditional_process() -> ErrorCode:
 		if not processor_module.pre_process('output'):
 			return 2
 	conditional_append_reference_faces()
+
 	if is_image(state_manager.get_item('target_path')):
 		return process_image(start_time)
 	if is_video(state_manager.get_item('target_path')):
@@ -144,7 +145,7 @@ def convert_faces(faces: List[Face]):
 
 def conditional_save_faces(reference_faces: List[Face]) -> ErrorCode:
 	if state_manager.get_item('reference_output_path'):
-		with open(os.path.join(state_manager.get_item('reference_output_path')), 'w', encoding='utf-8') as f:
+		with open(state_manager.get_item('reference_output_path'), 'w', encoding='utf-8') as f:
 			json.dump(convert_faces(reference_faces), f, ensure_ascii=False, indent=4)
 	return 0
 
