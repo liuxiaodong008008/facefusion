@@ -42,7 +42,7 @@ def create_paths_program() -> ArgumentParser:
 	group_paths.add_argument('-t', '--target-path', help = wording.get('help.target_path'), default = config.get_str_value('paths.target_path'))
 	group_paths.add_argument('-r', '--reference-output-path', help = wording.get('help.reference_output_path'), default = config.get_str_value('paths.reference_output_path'))
 	group_paths.add_argument('-o', '--output-path', help = wording.get('help.output_path'), default = config.get_str_value('paths.output_path'))
-	job_store.register_step_keys([ 'source_paths', 'target_path', 'output_path' ])
+	job_store.register_step_keys([ 'source_paths', 'target_path', 'reference_output_path', 'output_path' ])
 	return program
 
 
